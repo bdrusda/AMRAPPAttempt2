@@ -29,7 +29,12 @@ android {
 }
 
 dependencies {
-
+    // Lombok
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+    // Gson
+    implementation 'com.google.code.gson:gson:2.8.7'
+    // Basics
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'

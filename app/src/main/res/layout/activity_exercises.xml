@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:gravity="center"
-            android:background="@color/primary_very_light">
+            android:background="@color/primary_dark">
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
