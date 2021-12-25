@@ -1,18 +1,25 @@
 package com.example.amrappattempt2.entity;
 
+import com.example.amrappattempt2.enums.ExerciseType;
+
 import lombok.Data;
 
 @Data
-public class Exercise {
+public class Exercise implements Comparable {
     String name;
-    String type;    // TODO make this an enum
+    ExerciseType type;
 
     public Exercise(String name) {
         this.name = name.trim();
     }
 
-    public Exercise(String name, String type) {
+    public Exercise(String name, ExerciseType type) {
         this.name = name.trim();
         this.type = type;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return name.toLowerCase().compareTo(((Exercise) o).name.toLowerCase());
     }
 }

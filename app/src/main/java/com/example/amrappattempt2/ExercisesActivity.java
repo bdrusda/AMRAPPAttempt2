@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.amrappattempt2.adapter.ExerciseAdapter;
 import com.example.amrappattempt2.entity.Exercise;
 import com.example.amrappattempt2.entity.ExerciseList;
+import com.example.amrappattempt2.enums.ExerciseType;
 
 public class ExercisesActivity extends AppCompatActivity {
     ExerciseList exerciseList;
@@ -28,7 +29,7 @@ public class ExercisesActivity extends AppCompatActivity {
 
         // Set up the adapter
         ListView exerciseListView = findViewById(R.id.exercise_list);
-        this.exerciseAdapter = new ExerciseAdapter(getApplicationContext(), exerciseList.getExercises());
+        this.exerciseAdapter = new ExerciseAdapter(this, exerciseList);
         exerciseListView.setAdapter(exerciseAdapter);
 
 
@@ -45,12 +46,15 @@ public class ExercisesActivity extends AppCompatActivity {
         nameAlert.setMessage("Enter Exercise Name");
         nameAlert.setTitle("New Exercise");
 
+        // TODO lets add a dropdown that has - and the ExerciseType enum options for the exercise\
+            // TODO this will mean creating an additional view that we add instead of the nameEditText
+
         nameAlert.setView(nameEditText);
 
         nameAlert.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 String exerciseName = nameEditText.getText().toString();
-                Exercise exercise = new Exercise(exerciseName, "Test Type (Implement Later)");
+                Exercise exercise = new Exercise(exerciseName, ExerciseType.PUSH);
                 exerciseList.add(exercise);
                 exerciseAdapter.notifyDataSetChanged();
             }
@@ -66,8 +70,7 @@ public class ExercisesActivity extends AppCompatActivity {
 
     /* TODO EXERCISES (Basics)
             - take type of workout as well (and then we can filter on type)
-            - CURR add confirmation for the delete eventually
-            - pedantic but - sort alphabetically
+            - CURR - pedantic but - sort alphabetically
        TODO TEMPLATES
             and that should do for the basics of the exercise menu
             then we can move on to templates

@@ -2,6 +2,9 @@ package com.example.amrappattempt2.entity;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -9,6 +12,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import lombok.Data;
 
@@ -29,6 +33,11 @@ public class ExerciseList {
         writeExercises();
     }
 
+    public void delete(int position) {
+        exercises.remove(position);
+        writeExercises();
+    }
+
     // Data Persistence methods
     public void writeExercises() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -37,10 +46,11 @@ public class ExerciseList {
         editor.commit();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private List<Exercise> readExercises() {
         String connectionsJSONString = sharedPreferences.getString(EXERCISES, null);
         Type type = new TypeToken<List<Exercise>>() {}.getType();
         List<Exercise> exercises = new Gson().fromJson(connectionsJSONString, type);
-        return (exercises == null) ? new ArrayList() : exercises;
+        return (exercises == null) ? new ArrayList() : exercises.stream().sorted().collect(Collectors.toList());
     }
 }
